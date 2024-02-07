@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<section layout:fragment="body" class="bg-light py-5">
+  <div class="container px-5 my-5 px-5">
+    <div class="text-center mb-5">
+      <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+      <h2 class="fw-bolder">Update Run</h2>
+      <p class="lead mb-0">Update is not Good</p>
+    </div>
+    <div class="row gx-5 justify-content-center">
+      <div class="col-lg-6">
+
+        <form role="form" method="post" th:action="@{/clubs/{clubId}/edit(clubId=${club.id})}" th:object="${club}">
+          <!-- Name input-->
+          <div class="form-floating mb-3">
+            <input
+                    class="form-control"
+                    id="title" type="text"
+                    placeholder="Enter your Title..."
+                    th:field="*{title}"
+                    data-sb-validations="required"
+            />
+            <label for="title">Title</label>
+<!--            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>-->
+            <p th:if="${#fields.hasErrors('title')}" class="text-danger" th:errors="*{title}"></p>
+          </div>
+          <!-- Email address input-->
+          <div class="form-floating mb-3">
+            <input
+                    class="form-control"
+                    id="content" type="text"
+                    th:field="*{content}"
+                    placeholder="Enter your content here..."
+                    data-sb-validations="required"
+            />
+            <label for="content">Content</label>
+<!--            <div class="invalid-feedback" data-sb-feedback="content:required">Content is required.</div>-->
+            <p th:if="${#fields.hasErrors('content')}" class="text-danger" th:errors="*{content}"></p>
+          </div>
+          <!-- Phone number input-->
+          <div class="form-floating mb-3">
+            <input
+                    class="form-control"
+                    id="photoUrl" type="url"
+                    th:field="*{photoUrl}"
+                    placeholder="htpp://"
+                    data-sb-validations="required"
+            />
+            <label for="photoUrl">Photo Url</label>
+<!--            <div class="invalid-feedback" data-sb-feedback="photoUrl:required">A Photo Url is required.</div>-->
+            <p th:if="${#fields.hasErrors('photoUrl')}" class="text-danger" th:errors="*{photoUrl}"></p>
+
+          </div>
+
+
+          <div class="d-none" id="submitSuccessMessage">
+            <div class="text-center mb-3">
+              <div class="fw-bolder">Form submission successful!</div>
+              To activate this form, sign up at
+              <br />
+              <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+            </div>
+          </div>
+          <!-- Submit error message-->
+          <!---->
+          <!-- This is what your users will see when there is-->
+          <!-- an error submitting the form-->
+          <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+          <!-- Submit Button-->
+          <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Update</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
