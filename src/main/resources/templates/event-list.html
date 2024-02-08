@@ -15,10 +15,7 @@
         <p th:text="${event.type}"></p>
 
         <div>
-          <a class="btn btn-warning"> Edit </a>
-
-          <a class="btn btn-success">View</a>
-
+          <a class="btn btn-success" th:href="@{/events/{eventId}(eventId=${event.id})}">View</a>
         </div>
 
       </div>

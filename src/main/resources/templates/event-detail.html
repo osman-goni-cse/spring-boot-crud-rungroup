@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<!-- Features section-->
+<section layout:fragment="body" >
+  <!-- Page header with logo and tagline-->
+  <header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+      <div class="text-center my-5">
+        <h1 class="fw-bolder" th:text="${event.name}"></h1>
+        <p class="lead mb-0">Dhaka, Bangladesh</p>
+      </div>
+    </div>
+  </header>
+  <!-- Page content-->
+  <div class="container">
+    <div class="row">
+      <!-- Blog entries-->
+      <div class="col-lg-8">
+        <!-- Featured blog post-->
+        <div class="card mb-4">
+          <img class="card-img-top" th:src="${event.photoUrl}"  alt="Image Not Found" />
+          <div class="card-body">
+            <div class="small text-muted" th:text="${event.startTime}"></div>
+            <h2 class="card-title" th:text="${event.type}"></h2>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+            <a class="btn btn-primary" href="#!">Read more →</a>
+
+            <a class="btn btn-warning" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit</a>
+
+            <a class="btn btn-danger" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Delete</a>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+</section>
+
+</body>
+</html>

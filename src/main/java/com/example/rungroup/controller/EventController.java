@@ -5,6 +5,8 @@ import com.example.rungroup.models.Club;
 import com.example.rungroup.models.Event;
 import com.example.rungroup.service.ClubService;
 import com.example.rungroup.service.EventService;
+import jakarta.validation.Valid;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,5 +55,45 @@ public class EventController {
         List<EventDto> eventDtos = eventService.findAllEvents();
         model.addAttribute("events", eventDtos);
         return "event-list";
+    }
+
+    @GetMapping("/events/{eventId}")
+    public String eventDetails(@PathVariable("eventId") Long eventId, Model model) {
+        EventDto eventDto = eventService.getEventById(eventId);
+        model.addAttribute("event", eventDto);
+        return "event-detail";
+    }
+
+    @GetMapping("/events/{eventId}/edit")
+    public String eventUpdateForm(@PathVariable("eventId") Long eventId, Model model) {
+        EventDto eventDto = eventService.getEventById(eventId);
+        model.addAttribute("event", eventDto);
+        return "update-event-form";
+    }
+
+    @PostMapping("/events/{eventId}/edit")
+    public String eventUpdate(@PathVariable("eventId") Long eventId,
+                              @Valid @ModelAttribute("event") EventDto eventDto,
+                              BindingResult bindingResult,
+                              Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("event", eventDto);
+            return "event-detail";
+        }
+        EventDto eventDto1 = eventService.getEventById(eventId);
+        eventDto.setId(eventId);
+        eventDto.setClub(eventDto1.getClub());
+
+        eventService.updateEvent(eventDto);
+        model.addAttribute("event", eventDto);
+
+        return "event-detail";
+    }
+
+    @GetMapping("/events/{eventId}/delete")
+    public String deleteEvent(@PathVariable("eventId") Long eventId){
+        eventService.deleteEventById(eventId);
+        return "redirect:/events";
     }
 }
